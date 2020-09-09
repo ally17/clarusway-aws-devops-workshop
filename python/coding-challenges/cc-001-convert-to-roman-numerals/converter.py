@@ -1,16 +1,3 @@
-
-# print("##This program converts decimal numbers to Roman numeral numbers ##")
-
-
-# while True:
-#     num = input(''' To exit this program please type "exit"\n Please enter a number between 1 and 3999 : ''')
-#     x = ""
-#     if num.lower() == "exit":
-#         print("Good bye...")
-#         quit()
-#     elif int(num) < 0 or int(num) > 3999:
-#         print("please enter true value")
-#     elif int(num) >= 1000:
         
 conv = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
         [ 100, 'C'], [ 90, 'XC'], [ 50, 'L'], [ 40, 'XL'],
