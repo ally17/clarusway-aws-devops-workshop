@@ -30,9 +30,14 @@ def greet():
 def login():
     if request.method == "POST":
         user_name = request.form["username"]
-        return render_template("secure.html", user = user_name)
+        password = request.form.get("passw")
+        if user_name == "ali" and password == "1234":
+            return render_template("secure.html", user = user_name)
+        else:
+            return render_template("login.html")
     else:
-        return render_template("login.html")
+            return render_template("login.html")
+    
 
 # Add a statement to run the Flask application which can be reached from any host on port 80.
 if __name__ == "__main__":
