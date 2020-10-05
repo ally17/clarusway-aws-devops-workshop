@@ -22,7 +22,7 @@ Resources:
   mySecGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
-      GroupDescription: Enables SSH and HTTP
+      GroupDescription: Enables SSH and HTTP for Flask Web Server
       GroupName: Milliseconds-Sec-Group
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -32,7 +32,16 @@ Resources:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          CidrIp: 0.0.0.0/0
+          SourceSecurityGroupId: !GetAtt myALBSecGroup.GroupId
+  myALBSecGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enable Http for Application Load Balancer
+      SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: 80
+            ToPort: 80
+            CidrIp: 0.0.0.0/0
 
   myAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -65,7 +74,7 @@ Resources:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
       SecurityGroups:
-        - !GetAtt mySecGroup.GroupId
+        - !GetAtt myALBSecGroup.GroupId
       Name: Milliseconds-LB
       Subnets: !Ref Subnets
        
